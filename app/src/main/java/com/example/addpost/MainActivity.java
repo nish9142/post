@@ -43,11 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent i = new Intent(MainActivity.this,post.class);
                 MainActivity.this.startActivity(i);
+                finish();
 
 
 
             }
         });
+
+
+
+
 
 
     }

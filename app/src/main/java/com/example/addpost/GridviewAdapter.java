@@ -2,6 +2,7 @@ package com.example.addpost;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderItem viewHolderItem, int postion) {
+    public void onBindViewHolder(@NonNull final ViewHolderItem viewHolderItem, int postion) {
 
         String imgURL = imageuris.get(postion);
 
@@ -82,7 +83,24 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
             }
         });
 
-        
+        viewHolderItem.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int p = viewHolderItem.getPosition();
+                post.imageCursor= mAppend + imageuris.get(p);
+                Intent i = new Intent(mContext,post.class);
+                mContext.startActivity(i);
+
+                ((Activity)mContext).finish();
+
+
+
+
+            }
+        });
+
+
+
 
 
     }

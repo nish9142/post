@@ -1006,6 +1006,8 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable drawable_circle_dark_blue
+drawable drawable_circle_yellow
 drawable editbox
 drawable ic_add_black_24dp
 drawable ic_image_black_24dp
@@ -1067,6 +1069,7 @@ id barrier
 id beginning
 id blocking
 id bottom
+id bottombar
 id buttonPanel
 id center
 id center_horizontal
@@ -1093,6 +1096,10 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id displayImage
+id displayImageCloseBtn
+id displayImageView
+id editTextPrgBar
 id edit_query
 id end
 id enterAlways
@@ -1153,6 +1160,7 @@ id parentPanel
 id parent_matrix
 id percent
 id pin
+id postcontent
 id progress_circular
 id progress_horizontal
 id radio
