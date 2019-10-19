@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context=".post">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_height="?actionBarSize"
+        android:background="@color/design_default_color_primary"
+        android:titleTextColor="#FFFFFF">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:text="Share"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="85"
+        android:weightSum="100"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="match_parent"
+                android:src="@drawable/chris"
+                android:layout_height="wrap_content">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+
+        </LinearLayout>
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:gravity="start"
+            android:layout_weight="80"
+            android:layout_height="match_parent"
+            android:background="@drawable/editbox">
+
+
+        </EditText>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+</ScrollView>
