@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.addpost.Files.FilePaths;
@@ -20,13 +21,17 @@ import com.example.addpost.Files.FileSearch;
 import com.example.addpost.Permissions.Permissions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class gallery extends AppCompatActivity {
     private ArrayList<String> directories;
     private static final String TAG = "gallery";
+    public static List<String>  SelectedImgUrls = new ArrayList<>();
     private Spinner directorySpinner;
+    public static Button SelectImgBTn;
     private String mAppend = "file:/";
     RecyclerView gridView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,19 @@ public class gallery extends AppCompatActivity {
 
            init();
 
+           SelectImgBTn= findViewById(R.id.noOfSelectImgBtn);
+           SelectImgBTn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+
+                   Intent i = new Intent(gallery.this,post.class);
+                   gallery.this.startActivity(i);
+
+               }
+           });
+
+
+
 
 
 
@@ -70,9 +88,12 @@ public class gallery extends AppCompatActivity {
         for (int i = 0; i < directories.size(); i++) {
             Log.e(TAG, "init: directory: " + directories.get(i));
             int index = directories.get(i).lastIndexOf("/");
-            String string = directories.get(i).substring(index);
+            String string = directories.get(i).substring(index+1);
             directoryNames.add(string);
+
         }
+
+        Log.e(TAG, "init: "+ directories.toString());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, directoryNames);
@@ -98,6 +119,7 @@ public class gallery extends AppCompatActivity {
     private void setupGridView(String selectedDirectory){
         Log.e(TAG, "setupGridView: directory chosen: " + selectedDirectory);
         final ArrayList<String> imgURLs = FileSearch.getFilePaths(selectedDirectory);
+        Log.e(TAG, "setupGridView: "+ imgURLs.toString());
 
         //set the grid column width
 

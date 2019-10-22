@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="150dp"
     android:layout_height="180dp">
-    <com.example.addpost.SquareImageView
-        android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/gimage"
-        android:layout_height="match_parent" />
 
-</LinearLayout>
+    <com.example.addpost.SquareImageView
+        android:id="@+id/gimage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="33dp"
+        android:alpha="0.5"
+        android:background="#A3A1A1"
+        android:gravity="center">
+
+    </TextView>
+
+    <com.example.addpost.SquareImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/tick"
+        android:visibility="invisible"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_tick">
+
+    </com.example.addpost.SquareImageView>
+
+
+</RelativeLayout>
