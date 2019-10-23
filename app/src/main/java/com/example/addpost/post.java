@@ -63,6 +63,7 @@ public class post extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(post.this,gallery.class);
                 post.this.startActivity(i);
+               views.clear();
                 finish();
             }
         });
@@ -82,53 +83,62 @@ public class post extends AppCompatActivity {
 
             for (int i = gallery.SelectedImgUrls.size()-1;i>=0;i--)
             {
+
                 final View mview = inflater.inflate(R.layout.postviewpagerholder, null);
                 SquareImageView squareImageView = mview.findViewById(R.id.displayImage);
                 final int mimgcursor = i;
-                imageLoader.displayImage(gallery.SelectedImgUrls.get(i), squareImageView, new ImageLoadingListener() {
-
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
 
 
-                    }
+                    imageLoader.displayImage(gallery.SelectedImgUrls.get(i), squareImageView, new ImageLoadingListener() {
 
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        @Override
+                        public void onLoadingStarted(String imageUri, View view) {
 
-                        Log.e(TAG, "onLoadingComplete: " + "viewpager one page");
+                        }
 
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-
-                    }
-                });
-
-                Button close = mview.findViewById(R.id.displayImageCloseBtn);
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        viewPager.setAdapter(null);
-                        views.remove(mview);
-                        gallery.SelectedImgUrls.remove(mimgcursor);
-                        PagerAdapter pagerAdapter = new Pager(views, getApplicationContext());
-                        viewPager.setAdapter(pagerAdapter);
-                        pagerAdapter.notifyDataSetChanged();
-                        viewPager.setCurrentItem(views.size()-1);
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
 
-                    }
-                });
+                        }
 
-                views.add(mview);
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+
+                            Log.e(TAG, "onLoadingComplete: " + "viewpager one page");
+
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String imageUri, View view) {
+
+                        }
+                    });
+
+
+                    views.add(mview);
+
+                    Button close = mview.findViewById(R.id.displayImageCloseBtn);
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewPager.setAdapter(null);
+                            views.remove(mview);
+                            gallery.SelectedImgUrls.remove(mimgcursor);
+                            PagerAdapter pagerAdapter = new Pager(views, getApplicationContext());
+                            viewPager.setAdapter(pagerAdapter);
+                            pagerAdapter.notifyDataSetChanged();
+                            viewPager.setCurrentItem(views.size() - 1);
+                            post.NoOfSlecteImg--;
+
+
+                        }
+                    });
+
+
+
+
 
 
 

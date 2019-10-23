@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.ExifInterface;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
@@ -23,14 +24,18 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
 
     private final Context mContext;
     private final ArrayList<String> imageuris;
-    public static int LIMIT_IMGAES=4;
+    public static int TYPE=1;
+    public static int LIMIT_IMGAES=3;
     private final  String mAppend;
     private final  String TAG = "gridview";
 
@@ -102,9 +107,22 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
                             viewHolderItem.selected=1;
                             viewHolderItem.imageView.setAlpha(0.4f);
                             viewHolderItem.tick.setVisibility(View.VISIBLE);
-                            viewHolderItem.tick.setAlpha(0.6f);
+                            viewHolderItem.tick.setAlpha(0.8f);
                             post.NoOfSlecteImg++;
                             gallery.SelectedImgUrls.add(TrueImageUrl);
+                            ExifInterface exif = null;
+                            String datetime = null;
+                            try {
+                                exif = new ExifInterface(TrueImageUrl);
+                                 datetime = exif.getAttribute(ExifInterface.TAG_DATETIME);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Log.e(TAG, "onClick: "+ datetime );
+                           
+                            
+                            
 
 
 
@@ -117,6 +135,7 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
                             viewHolderItem.imageView.setAlpha(1.0f);
                             viewHolderItem.tick.setVisibility(View.INVISIBLE);
                             gallery.SelectedImgUrls.remove(TrueImageUrl);
+                            post.NoOfSlecteImg--;
 
                         }
 
@@ -128,6 +147,7 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
                             viewHolderItem.imageView.setAlpha(1.0f);
                             viewHolderItem.tick.setVisibility(View.INVISIBLE);
                             gallery.SelectedImgUrls.remove(TrueImageUrl);
+                            post.NoOfSlecteImg--;
 
 
                         }
@@ -193,6 +213,10 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
                            post.NoOfSlecteImg++;
                            gallery.SelectedImgUrls.add(TrueImageUrl);
 
+                           File file = new File(TrueImageUrl);
+                           Date lastModDate = new Date(file.lastModified());
+                           Log.e("File last modified @ : ",lastModDate.toString());
+
 
 
 
@@ -203,6 +227,7 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
                            viewHolderItem.selected=0;
                            viewHolderItem.imageView.setAlpha(1.0f);
                            viewHolderItem.tick.setVisibility(View.INVISIBLE);
+                           post.NoOfSlecteImg--;
                           gallery.SelectedImgUrls.remove(TrueImageUrl);
 
                        }
@@ -214,6 +239,7 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
                             viewHolderItem.selected=0;
                             viewHolderItem.imageView.setAlpha(1.0f);
                             viewHolderItem.tick.setVisibility(View.INVISIBLE);
+                            post.NoOfSlecteImg--;
                             gallery.SelectedImgUrls.remove(TrueImageUrl);
 
 
@@ -234,6 +260,14 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
 
         }
 
+        if (viewHolderItem.selected==1){
+            viewHolderItem.imageView.setAlpha(0.4f);
+            viewHolderItem.tick.setVisibility(View.VISIBLE);
+            viewHolderItem.tick.setAlpha(0.6f);
+
+
+        }
+
 
 
 
@@ -244,13 +278,18 @@ public class GridviewAdapter extends RecyclerView.Adapter<ViewHolderItem> {
     public int getItemCount() {
         return imageuris.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+      return TYPE;
+    }
 }
 
 
 class ViewHolderItem extends RecyclerView.ViewHolder {
     SquareImageView imageView;
     TextView timeduration;
-    int selected=0;
+    static int selected=0;
     SquareImageView tick;
 
 

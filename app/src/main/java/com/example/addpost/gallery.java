@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +21,11 @@ import com.example.addpost.Files.FilePaths;
 import com.example.addpost.Files.FileSearch;
 import com.example.addpost.Permissions.Permissions;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class gallery extends AppCompatActivity {
@@ -55,9 +60,18 @@ public class gallery extends AppCompatActivity {
 
 
 
+
+
+
+
            init();
 
            SelectImgBTn= findViewById(R.id.noOfSelectImgBtn);
+
+                if(post.NoOfSlecteImg>0){
+                    SelectImgBTn.setText("Selected"+ " " +post.NoOfSlecteImg +" Images");
+                }
+
            SelectImgBTn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
@@ -74,6 +88,8 @@ public class gallery extends AppCompatActivity {
 
 
 
+
+
     }
     private void init(){
         FilePaths filePaths = new FilePaths();
@@ -83,6 +99,7 @@ public class gallery extends AppCompatActivity {
             directories = FileSearch.getDirectoryPaths(filePaths.PICTURES);
         }
         directories.add(filePaths.CAMERA);
+        Collections.reverse(directories);
 
         ArrayList<String> directoryNames = new ArrayList<>();
         for (int i = 0; i < directories.size(); i++) {
@@ -124,6 +141,9 @@ public class gallery extends AppCompatActivity {
         //set the grid column width
 
         gridView.setLayoutManager(new GridLayoutManager(this,3));
+        gridView.getRecycledViewPool().setMaxRecycledViews(GridviewAdapter.TYPE,0);
+
+
 
         //use the grid adapter to adapter the images to gridview
        GridviewAdapter gridviewAdapter = new GridviewAdapter(this,R.layout.layout,imgURLs, mAppend);
